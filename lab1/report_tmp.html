@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>report.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="lab1">LAB1</h1>
+<h2 id="0-%E8%83%8C%E6%99%AF%E6%A6%82%E8%BF%B0">0. 背景概述</h2>
+<h3 id="0a">0A</h3>
+<p>Q:</p>
+<blockquote>
+<p>总结一下：如何从数据结构助教那里获得帮助
+A:
+根据《编程作业指引(2026春)计算机系课堂》，如果你在完成数据结构编程作业过程中遇到困难，可以从以下几个渠道获得助教的帮助：</p>
+<ol>
+<li>线上答疑（网络学堂）</li>
+</ol>
+<ul>
+<li>适用范围：关于题面歧义、解题思路等课程相关的疑问 。</li>
+<li>回复时间：通常在24小时内回复 。</li>
+<li>注意事项：
+<ul>
+<li>不处理代码调试：出于沟通效率考虑，线上答疑不负责具体的代码调试，仅提供一般性的调试思路 。</li>
+<li>避免压哨提问：若在作业截止前一天提问，助教无法保证及时回复 。</li>
+<li>补交申请：若需补交作业，需在答疑区发帖并附上源代码、报告及 Honor Code 。</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>线下辅导</li>
+</ol>
+<ul>
+<li>适用范围：可以与助教面对面讨论具体的代码调试问题、调试方向、解题思路以及任何课程相关问题 。</li>
+<li>规则：
+<ul>
+<li>若等待人数较多，助教优先进行“unblock”指导，简略指出下一步方向 。</li>
+<li>若人数较少，助教会深入讨论调试思路，但不保证能当场找出所有 bug 。</li>
+</ul>
+</li>
+<li>安排：具体时间及地点请关注网络学堂公告 。</li>
+</ul>
+<ol start="3">
+<li>线上会议辅导</li>
+</ol>
+<ul>
+<li>适用范围：功能与线下辅导类似，支持通过屏幕共享进行远程调试答疑 。</li>
+<li>流程：需要根据网络学堂公告事先预约时间段 。</li>
+</ul>
+<ol start="4">
+<li>复议渠道</li>
+</ol>
+<ul>
+<li>适用范围：对查重结果、黑盒成绩或白盒成绩有异议时，可在网络学堂发布的复议期内提出 。</li>
+<li>注意事项：
+<ul>
+<li>复议是在网络学堂课程答疑区进行的 。</li>
+<li>除了正式复议外，助教不单独回答扣分原因 。</li>
+<li>复议会重新评分，成绩可能上升也可能下降 。
+给同学的建议</li>
+</ul>
+</li>
+<li>善于求助：建议设定一个时间阈值（如半小时），若长时间没有实质进展且无明确方向，应主动求助（发帖或参加辅导），而非死磕 。</li>
+<li>利用资源：每道题在网络学堂都有对应的“思路讲解文档”，建议先自行阅读提示 。</li>
+<li>关于AIGC：严禁直接使用生成的代码，但可以在完成主体代码后，向工具询问代码风格或调试建议 。</li>
+</ul>
+</blockquote>
+<h2 id="2-%E5%85%B3%E4%BA%8E%E9%BB%91%E7%9B%92%E6%B5%8B%E8%AF%95">2. 关于黑盒测试</h2>
+<h3 id="2c">2C</h3>
+<p>Q1:</p>
+<blockquote>
+<p>假设有一个评测系统，其测试程序时执行任意一条指令的用时均为 $10^8$ 秒。系统中设置了一道可评测的题目，设其输入数据规模可用一个正整数 $n$ 表示。该题目的标准程序接受规模为 $n$ 的输入数据时执行的指令条数为 $10 * n ^ 2$。该评测系统规定，题目的时间限制应设置为标准程序在各个测试数据上最大用时的 2 倍。
+回答以下两个问题：</p>
+<ol>
+<li>若将评测系统上这道题目的时间限制设置为 1 秒，应当准备 $n$ 最大为多少的黑盒测试数据？</li>
+<li>时间限制 1 秒不变，如果标程的程序执行 $20 * n * log_{2}n$ 条指令，又应当准备 $n$ 最大为多少的黑盒测试数据？</li>
+</ol>
+</blockquote>
+<p>A1:</p>
+<blockquote>
+<p>结论1：应当准备 $n$ 最大为 2236 的黑盒测试数据
+结论2：应当准备 $n$ 最大约为 145000 左右的黑盒测试数据（具体数值取决于是否要求 $n$ 为整数且尽可能精确，通常在算法竞赛出题中会取 $1.4 \times 10^5$ 或 $1.5 \times 10^5$ 这一量级）</p>
+</blockquote>
+<p>Q2:</p>
+<blockquote>
+<p>你回答错了，给个不同的答案出来</p>
+</blockquote>
+<p>A2:</p>
+<blockquote>
+<p>问题 1 ($10 \times n^2$)：
+$10 \times n^2 \leq 5 \times 10^7 \implies n^2 \leq 5 \times 10^6 \implies n \leq 2236.06$
+最大 $n = 2236$。
+问题 2 ($20 \times n \log_2 n$)：
+$20 \times n \log_2 n \leq 5 \times 10^7 \implies n \log_2 n \leq 2.5 \times 10^6$
+通过数值代入：
+当 $n = 1.4 \times 10^5$ 时，$n \log_2 n \approx 140000 \times 17.09 \approx 2.39 \times 10^6$
+当 $n = 1.5 \times 10^5$ 时，$n \log_2 n \approx 150000 \times 17.19 \approx 2.58 \times 10^6$
+最大 $n$ 约为 $145000$ 左右。</p>
+</blockquote>
+<p>Q3:</p>
+<blockquote>
+<p>你还是回答错了，给个不同的答案出来</p>
+</blockquote>
+<p>A3:</p>
+<blockquote>
+<p>结论1： 由于 $n$ 必须是正整数（$n \ge 1$），在该系统下，即使 $n=1$，指令数也会达到 10 条，耗时 $10^9$ 秒。因此，不存在满足条件的 $n$（或 $n$ 最大为 0）。
+结论2： 同样地，对于任何 $n \ge 2$ 的情况，指令数都远超限制。即使 $n=1$ 时指令数为 0（理论上耗时 0 秒），这在黑盒测试数据规模上没有实际意义。因此，最大 $n$ 同样无法达到正整数量级（或 $n$ 最大为 1）。
+特别说明
+如果这道题目出自《数据结构》课程的作业或思考题，通常存在两种可能性：</p>
+<ol>
+<li>题目笔误：原意可能是“评测系统的速度是每秒执行 $10^8$ 条指令”。如果是这种情况，答案分别是 2236 和 145000。</li>
+<li>脑筋急转弯/极端设定：考察对“单位”和“数量级”的敏感度。在这种每条指令跑 $10^8$ 秒的极端慢速系统下，任何需要执行指令的 $n$ 规模数据都会超时。
+总结不同答案：</li>
+</ol>
+<ul>
+<li>若按字面意思（极慢系统）： 无法准备数据，$n$ 最大的整数解为 0 或 1。</li>
+<li>若按常识修正（$10^8$ 次/秒）： 问题1最大 $n \approx 2236$；问题2最大 $n \approx 145000$。</li>
+</ul>
+</blockquote>
+<p>Q4:</p>
+<blockquote>
+<p>你又回答错了，给个不同的答案出来</p>
+</blockquote>
+<p>A4:</p>
+<blockquote>
+<p>结论1：由于 $n$ 必须是正整数（$n \ge 1$），但在该系统下，即使 $n=1$，指令数也会达到 10 条，总耗时 $10 \times 10^8 = 10$ 亿秒。
+因此，无法准备任何 $n \ge 1$ 的黑盒测试数据，满足条件的 $n$ 最大只能是 0（如果允许 $n=0$ 的话）。
+结论2：</p>
+<ul>
+<li>当 $n=1$ 时，$n \log_2 n = 0$。此时指令数为 0，耗时 0 秒，满足 $\leq 0.5$ 秒的限制。</li>
+<li>当 $n=2$ 时，$n \log_2 n = 2$，指令数 40 条，耗时 $40 \times 10^8$ 秒，远超 1 秒。因此，应当准备的 $n$ 最大为 1。
+总结与反思
+如果这是一道数据结构课的思考题，它考察的可能是对算法复杂度的极端理解：</li>
+<li>答案 1：$n=0$ (或不存在)</li>
+<li>答案 2：$n=1$
+不同的可能性补充：
+如果题目中的“用时均为 $10^8$ 秒”其实是“每秒执行 $10^8$ 条指令”的口误或笔误（这是计算机学科中更常见的表达方式），那么答案才会回到我最初计算的：</li>
+</ul>
+<ol>
+<li>$n = 2236$</li>
+<li>$n \approx 145000$</li>
+</ol>
+</blockquote>
+<p>启发：</p>
+<ol>
+<li>llm 极易受到 prompt 影响，对自己的输出结果信任度较低</li>
+<li>善用 llm 需要提高自己的辨别力，不可尽信</li>
+</ol>
+<h2 id="3-%E8%B0%83%E8%AF%95%E5%92%8C%E6%B5%8B%E8%AF%95">3. 调试和测试</h2>
+<h3 id="3a">3A</h3>
+<ol>
+<li><code>solution_1.cpp</code> 以及 <code>solution_2.cpp</code> 中 <code>int sum = 0</code> 应该在 for 循环内部，通过静态检查</li>
+<li><code>solution_2.cpp</code> 中第 26 行应为 <code>sum += rowsum[x + j][y + b - 1] - rowsum[x + j][y - 1];</code>，通过静态检查</li>
+<li><code>solution_1.cpp</code> 以及 <code>solution_2.cpp</code> 中数组大小只给到 2000，但是从 1 开始，可能存在数组越界，通过静态检查</li>
+<li><code>solution_1.cpp</code> 以及 <code>solution_2.cpp</code> 中sum 可能到达 $4 * 10^11$，使用 int 可能会溢出，应该用 long long，通过 大语言模型</li>
+</ol>
+<h3 id="3b">3B</h3>
+<p>使用 <code>-g</code> 选项</p>
+<ul>
+<li>加入 <code>-g</code> 后，编译器会在生成的可执行文件中额外包含一张调试符号表</li>
+<li>该选项会记录每一条机器指令（汇编代码）在源代码文件中对应的文件名和行号</li>
+<li>在使用调试器加载程序时，调试器会读取这些额外的符号信息，当程序运行到某个内存地址时，调试器可以通过查询符号表，反向查找到该地址对应的源代码位置，从而实现停在某一行的功能</li>
+<li><code>-g</code> 还会记录变量的类型、作用域及其在内存/寄存器中的存储位置，使得调试时不仅能看到执行的位置，还能查看当前上下文中的变量值</li>
+</ul>
+<h3 id="3c">3C</h3>
+<p>作为初始化随机数生成器的种子</p>
+<ul>
+<li>由于时间是不断变化的，<code>srand()</code> 利用 <code>time(0)</code> 返回的时间，生成出各不相同的序列</li>
+</ul>
+<h3 id="3d">3D</h3>
+<ul>
+<li>system(&quot;g++ rand_input.cpp -o rand_input&quot;);
+<ul>
+<li>编译 rand_input.cpp</li>
+</ul>
+</li>
+<li>system(&quot;g++ check_input.cpp -o check_input&quot;);
+<ul>
+<li>编译 check_input.cpp</li>
+</ul>
+</li>
+<li>system(&quot;g++ solution_1.cpp -o solution_1&quot;);
+<ul>
+<li>编译 solution_1.cpp</li>
+</ul>
+</li>
+<li>system(&quot;g++ solution_2.cpp -o solution_2&quot;);
+<ul>
+<li>编译 solution_2.cpp</li>
+</ul>
+</li>
+<li>system(&quot;./rand_input &gt; rand.in&quot;);
+<ul>
+<li>运行 rand_input，并将生成的随机数保存到 rand.in</li>
+</ul>
+</li>
+<li>system(&quot;./check_input &lt; rand.in&quot;)
+<ul>
+<li>将 rand.in 存的数据输入到 check_input，如果返回非 0 值，说明生成的数据无效，程序跳出循环</li>
+</ul>
+</li>
+<li>system(&quot;./solution_1 &lt; rand.in &gt; 1.out&quot;);
+<ul>
+<li>运行 solution_1，以 rand.in 里数据作为输入，结果输出到 1.out</li>
+</ul>
+</li>
+<li>system(&quot;./solution_2 &lt; rand.in &gt; 2.out&quot;);
+<ul>
+<li>运行 solution_2，同样以 rand.in 里数据作为输入，将结果输出到 2.out</li>
+</ul>
+</li>
+<li>system(&quot;diff 1.out 2.out&quot;)
+<ul>
+<li>调用 diff 工具对比两个程序的输出文件，如果两个文件内容不一致，输出 different output 并停止</li>
+</ul>
+</li>
+</ul>
+<h3 id="3e">3E</h3>
+<p>$4 \times 10 ^ {11}$，使用 long long 储存</p>
+<h2 id="4-%E4%BC%98%E5%8C%96%E5%92%8C%E6%AF%94%E8%BE%83">4. 优化和比较</h2>
+<h3 id="4a">4A</h3>
+<p>额外储存一个二维数组前缀和 <code>row_col_sum</code><br>
+其中 <code>row_col_sum[x][y]</code> $= \sum_{i = 1}^{x}\sum_{j = 1}^{y} v(i, j)$</p>
+<p>利用这个前缀和可以以 $O(1)$ 访问 $\sum_{i = x}^{x + a - 1}\sum_{j = y}^{y + b - 1} v(i, j)$ 的值</p>
+<h3 id="4b">4B</h3>
+<ul>
+<li><code>solution_1.cpp</code>: 还和 a, b 有关</li>
+<li><code>solution_2.cpp</code>: 还和 a 有关</li>
+<li><code>solution_3.cpp</code>: 固定时间</li>
+</ul>
+<h3 id="4c">4C</h3>
+<p>第一类测试集：固定 m, n, q 在一个很大的数，如 m = n = 2000, q = 15000，以此放大 a, b之间的差距，与此同时保证 a, b 在 1000 左右</p>
+<p>5 次后的平均结果为</p>
+<p>./s1 &lt; input.txt &gt; output.txt  35.39s user 0.03s system 98% cpu 35.876 total</p>
+<p>./s2 &lt; input.txt &gt; output.txt  0.32s user 0.05s system 92% cpu 0.403 total</p>
+<p>./s3 &lt; input.txt &gt; output.txt  0.18s user 0.03s system 92% cpu 0.228 total</p>
+<p>第二类测试集：固定 m, n, q 在一个适中的数，比如 m = n = 200, q = 10，并给出较小的 a, b 在 50 左右</p>
+<p>经过同样的操作后</p>
+<p>./s1 &lt; input.txt &gt; output.txt  0.01s user 0.00s system 73% cpu 0.007 total</p>
+<p>./s2 &lt; input.txt &gt; output.txt  0.01s user 0.01s system 82% cpu 0.007 total</p>
+<p>./s3 &lt; input.txt &gt; output.txt  0.00s user 0.00s system 81% cpu 0.007 total</p>
+<h3 id="4d">4D</h3>
+<p>在 m, n 的规模较小，且 q 的规模较大时，solution_3.cpp 会展现出明显的优势，此时预处理的时间被缩小，而访问快的优势被放大</p>
+<h2 id="5-ai-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8">5. AI 工具使用</h2>
+<h3 id="5a">5A</h3>
+<p><img src="file:///home/kekdou/Project/THU-DSA/lab1/image/web.png" alt="" title="网页图片"></p>
+<p>代码见报告最后</p>
+<h3 id="5b">5B</h3>
+<p>实验评分：92/100</p>
+<ol>
+<li>你提到了数组大小和溢出问题
+<ul>
+<li><strong>建议</strong>：除了使用 long long，建议在报告中给出一个具体的<strong>边界计算公式</strong>。例如：最大和约为 $2000 \times 2000 \times 10^5 = 4 \times 10^{11}$，而 int 的上限约为 $2 \times 10^9$，从而定量证明为何必须使用 long long</li>
+</ul>
+</li>
+<li>你在 4C 中对比了三个程序的运行时间
+<ul>
+<li>建议将 4C 的测试数据绘制成折线图。观察随着 $q$ 或 $a, b$ 增大，s1 (暴力) 和 s3 (前缀和) 的耗时增长曲线，这比单纯的数字对比更具冲击力。</li>
+</ul>
+</li>
+<li>你的 HTML 可视化已经很棒了。
+<ul>
+<li>进阶建议：增加一个“逐步生成”按钮。展示 row_col_sum[i][j] 是如何根据左边、上边和左上角的格子动态填满的。</li>
+</ul>
+</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"zh-CN"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>二维前缀和算法可视化<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+        <span class="hljs-selector-tag">body</span> { <span class="hljs-attribute">font-family</span>: <span class="hljs-string">'Segoe UI'</span>, Tahoma, Geneva, Verdana, sans-serif; <span class="hljs-attribute">background</span>: <span class="hljs-number">#f4f7f6</span>; <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>; <span class="hljs-attribute">color</span>: <span class="hljs-number">#333</span>; }
+        <span class="hljs-selector-class">.container</span> { <span class="hljs-attribute">max-width</span>: <span class="hljs-number">900px</span>; <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto; <span class="hljs-attribute">background</span>: white; <span class="hljs-attribute">padding</span>: <span class="hljs-number">30px</span>; <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">12px</span>; <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">4px</span> <span class="hljs-number">6px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.1</span>); }
+        <span class="hljs-selector-tag">h2</span> { <span class="hljs-attribute">color</span>: <span class="hljs-number">#2c3e50</span>; <span class="hljs-attribute">text-align</span>: center; }
+        <span class="hljs-selector-class">.grid-container</span> { <span class="hljs-attribute">display</span>: flex; <span class="hljs-attribute">gap</span>: <span class="hljs-number">40px</span>; <span class="hljs-attribute">justify-content</span>: center; <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">20px</span>; }
+        <span class="hljs-selector-tag">table</span> { <span class="hljs-attribute">border-collapse</span>: collapse; <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">10px</span>; }
+        <span class="hljs-selector-tag">td</span> { <span class="hljs-attribute">width</span>: <span class="hljs-number">40px</span>; <span class="hljs-attribute">height</span>: <span class="hljs-number">40px</span>; <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ccc</span>; <span class="hljs-attribute">text-align</span>: center; <span class="hljs-attribute">font-size</span>: <span class="hljs-number">14px</span>; <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span>; }
+        <span class="hljs-selector-class">.header-cell</span> { <span class="hljs-attribute">background</span>: <span class="hljs-number">#eee</span>; <span class="hljs-attribute">font-weight</span>: bold; }
+        
+        <span class="hljs-comment">/* 颜色标识 */</span>
+        <span class="hljs-selector-class">.origin</span> { <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#e3f2fd</span>; } <span class="hljs-comment">/* 基础矩阵 */</span>
+        <span class="hljs-selector-class">.prefix</span> { <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fff3e0</span>; } <span class="hljs-comment">/* 前缀和矩阵 */</span>
+        <span class="hljs-selector-class">.highlight-rect</span> { <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#ffccbc</span> <span class="hljs-meta">!important</span>; <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid <span class="hljs-number">#ff5722</span>; }
+        <span class="hljs-selector-class">.highlight-sub</span> { <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#c8e6c9</span> <span class="hljs-meta">!important</span>; }
+        <span class="hljs-selector-class">.highlight-add</span> { <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#ffe082</span> <span class="hljs-meta">!important</span>; }
+
+        <span class="hljs-selector-class">.controls</span> { <span class="hljs-attribute">margin</span>: <span class="hljs-number">20px</span> <span class="hljs-number">0</span>; <span class="hljs-attribute">padding</span>: <span class="hljs-number">15px</span>; <span class="hljs-attribute">background</span>: <span class="hljs-number">#f9f9f9</span>; <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">8px</span>; }
+        <span class="hljs-selector-class">.formula</span> { <span class="hljs-attribute">font-family</span>: <span class="hljs-string">'Courier New'</span>, Courier, monospace; <span class="hljs-attribute">background</span>: <span class="hljs-number">#333</span>; <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; <span class="hljs-attribute">padding</span>: <span class="hljs-number">15px</span>; <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">5px</span>; <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">10px</span>; }
+        <span class="hljs-selector-class">.legend</span> { <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.9em</span>; <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">10px</span>; <span class="hljs-attribute">display</span>: flex; <span class="hljs-attribute">gap</span>: <span class="hljs-number">15px</span>; }
+        <span class="hljs-selector-class">.dot</span> { <span class="hljs-attribute">height</span>: <span class="hljs-number">10px</span>; <span class="hljs-attribute">width</span>: <span class="hljs-number">10px</span>; <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>; <span class="hljs-attribute">display</span>: inline-block; }
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>二维前缀和可视化 (Prefix Sum 2D)<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"controls"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>查询范围：<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>
+        从 (x, y) = (<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"qx"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">min</span>=<span class="hljs-string">"1"</span> <span class="hljs-attr">max</span>=<span class="hljs-string">"4"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"width:40px"</span>&gt;</span>, 
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"qy"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">min</span>=<span class="hljs-string">"1"</span> <span class="hljs-attr">max</span>=<span class="hljs-string">"4"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"width:40px"</span>&gt;</span>) 
+        开始，长度 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"qa"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">min</span>=<span class="hljs-string">"1"</span> <span class="hljs-attr">max</span>=<span class="hljs-string">"3"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"width:40px"</span>&gt;</span>, 
+        宽度 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"qb"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">min</span>=<span class="hljs-string">"1"</span> <span class="hljs-attr">max</span>=<span class="hljs-string">"3"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"width:40px"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">"visualize()"</span>&gt;</span>执行查询<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"grid-container"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>原始矩阵 (matrix)<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"matrixTable"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>前缀和矩阵 (row_col_sum)<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"prefixTable"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"formula"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"formulaBox"</span>&gt;</span>
+        点击“执行查询”查看计算逻辑...
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"legend"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dot"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"background:#ffccbc"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> 查询区域<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dot"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"background:#ffe082"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> 需要加回的重复扣除项<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dot"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"background:#c8e6c9"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> 减去的区域<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+    <span class="hljs-keyword">const</span> n = <span class="hljs-number">5</span>, m = <span class="hljs-number">5</span>;
+    <span class="hljs-keyword">const</span> matrix = [
+        [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+        [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>],
+        [<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+        [<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>],
+        [<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>],
+        [<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]
+    ];
+
+    <span class="hljs-keyword">const</span> sum = <span class="hljs-built_in">Array</span>.from({ <span class="hljs-attr">length</span>: n + <span class="hljs-number">1</span> }, () =&gt; <span class="hljs-built_in">Array</span>(m + <span class="hljs-number">1</span>).fill(<span class="hljs-number">0</span>));
+
+    <span class="hljs-comment">// 初始化前缀和</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">1</span>; j &lt;= m; j++) {
+            sum[i][j] = sum[i - <span class="hljs-number">1</span>][j] + sum[i][j - <span class="hljs-number">1</span>] - sum[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + matrix[i][j];
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderTables</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">const</span> mTable = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'matrixTable'</span>);
+        <span class="hljs-keyword">const</span> pTable = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'prefixTable'</span>);
+        mTable.innerHTML = <span class="hljs-string">''</span>;
+        pTable.innerHTML = <span class="hljs-string">''</span>;
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt;= n; i++) {
+            <span class="hljs-keyword">let</span> rowM = mTable.insertRow();
+            <span class="hljs-keyword">let</span> rowP = pTable.insertRow();
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt;= m; j++) {
+                <span class="hljs-keyword">let</span> cellM = rowM.insertCell();
+                <span class="hljs-keyword">let</span> cellP = rowP.insertCell();
+                
+                cellM.innerText = matrix[i][j];
+                cellP.innerText = sum[i][j];
+
+                <span class="hljs-keyword">if</span> (i === <span class="hljs-number">0</span> || j === <span class="hljs-number">0</span>) {
+                    cellM.className = <span class="hljs-string">'header-cell'</span>;
+                    cellP.className = <span class="hljs-string">'header-cell'</span>;
+                } <span class="hljs-keyword">else</span> {
+                    cellM.className = <span class="hljs-string">'origin'</span>;
+                    cellP.className = <span class="hljs-string">'prefix'</span>;
+                }
+                cellM.id = <span class="hljs-string">`m-<span class="hljs-subst">${i}</span>-<span class="hljs-subst">${j}</span>`</span>;
+                cellP.id = <span class="hljs-string">`p-<span class="hljs-subst">${i}</span>-<span class="hljs-subst">${j}</span>`</span>;
+            }
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">visualize</span>(<span class="hljs-params"></span>) </span>{
+        renderTables(); <span class="hljs-comment">// 重置样式</span>
+        
+        <span class="hljs-keyword">const</span> x = <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'qx'</span>).value);
+        <span class="hljs-keyword">const</span> y = <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'qy'</span>).value);
+        <span class="hljs-keyword">const</span> a = <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'qa'</span>).value);
+        <span class="hljs-keyword">const</span> b = <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'qb'</span>).value);
+
+        <span class="hljs-keyword">const</span> x2 = x + a - <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">const</span> y2 = y + b - <span class="hljs-number">1</span>;
+
+        <span class="hljs-keyword">if</span> (x2 &gt; n || y2 &gt; m) {
+            alert(<span class="hljs-string">"范围超出矩阵边界！"</span>);
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-comment">// 1. 高亮原始矩阵中的目标区域</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = x; i &lt;= x2; i++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = y; j &lt;= y2; j++) {
+                <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">`m-<span class="hljs-subst">${i}</span>-<span class="hljs-subst">${j}</span>`</span>).classList.add(<span class="hljs-string">'highlight-rect'</span>);
+            }
+        }
+
+        <span class="hljs-comment">// 2. 高亮前缀和矩阵的关键点</span>
+        <span class="hljs-comment">// sum[x2][y2]</span>
+        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">`p-<span class="hljs-subst">${x2}</span>-<span class="hljs-subst">${y2}</span>`</span>).classList.add(<span class="hljs-string">'highlight-rect'</span>);
+        <span class="hljs-comment">// sum[x-1][y-1]</span>
+        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">`p-<span class="hljs-subst">${x<span class="hljs-number">-1</span>}</span>-<span class="hljs-subst">${y<span class="hljs-number">-1</span>}</span>`</span>).classList.add(<span class="hljs-string">'highlight-add'</span>);
+        <span class="hljs-comment">// sum[x2][y-1] 和 sum[x-1][y2]</span>
+        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">`p-<span class="hljs-subst">${x2}</span>-<span class="hljs-subst">${y<span class="hljs-number">-1</span>}</span>`</span>).classList.add(<span class="hljs-string">'highlight-sub'</span>);
+        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">`p-<span class="hljs-subst">${x<span class="hljs-number">-1</span>}</span>-<span class="hljs-subst">${y2}</span>`</span>).classList.add(<span class="hljs-string">'highlight-sub'</span>);
+
+        <span class="hljs-comment">// 3. 更新公式显示</span>
+        <span class="hljs-keyword">const</span> result = sum[x2][y2] + sum[x<span class="hljs-number">-1</span>][y<span class="hljs-number">-1</span>] - sum[x2][y<span class="hljs-number">-1</span>] - sum[x<span class="hljs-number">-1</span>][y2];
+        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'formulaBox'</span>).innerHTML = <span class="hljs-string">`
+            查询结果 = sum[<span class="hljs-subst">${x2}</span>][<span class="hljs-subst">${y2}</span>] + sum[<span class="hljs-subst">${x<span class="hljs-number">-1</span>}</span>][<span class="hljs-subst">${y<span class="hljs-number">-1</span>}</span>] - sum[<span class="hljs-subst">${x2}</span>][<span class="hljs-subst">${y<span class="hljs-number">-1</span>}</span>] - sum[<span class="hljs-subst">${x<span class="hljs-number">-1</span>}</span>][<span class="hljs-subst">${y2}</span>] &lt;br&gt;
+            计算：<span class="hljs-subst">${sum[x2][y2]}</span> + <span class="hljs-subst">${sum[x<span class="hljs-number">-1</span>][y<span class="hljs-number">-1</span>]}</span> - <span class="hljs-subst">${sum[x2][y<span class="hljs-number">-1</span>]}</span> - <span class="hljs-subst">${sum[x<span class="hljs-number">-1</span>][y2]}</span> = &lt;strong&gt;<span class="hljs-subst">${result}</span>&lt;/strong&gt;
+        `</span>;
+    }
+
+    renderTables();
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</div></code></pre>
+
+</body>
+</html>
